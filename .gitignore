@@ -1,0 +1,43 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+
+# Editor/IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# OS файли
+.DS_Store
+Thumbs.db
+
+# Build файли
+/build/
+/dist/
+/.next/
+/.parcel-cache/
+
+# Логи
+logs/
+*.log
+
+# React специфічне
+public/*.hot-update.json
+public/static/
+
+# TypeScript
+*.tsbuildinfo
+
+# MongoDB
+/data/
+*.lock
+
+# Docker
+docker-compose.override.yml
