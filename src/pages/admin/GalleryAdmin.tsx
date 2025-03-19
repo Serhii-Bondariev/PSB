@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AdminHeader from '../../components/admin/AdminHeader';
 import Sidebar from '../../components/admin/Sidebar';
-import { PlusIcon, TrashIcon, VideoIcon, EditIcon, XIcon } from 'lucide-react';
+import { PlusIcon, TrashIcon,VideoIcon, EditIcon, XIcon } from 'lucide-react';
 interface MediaItem {
   id: number;
   type: 'image' | 'video';
