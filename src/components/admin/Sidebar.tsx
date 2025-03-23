@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboardIcon, UsersIcon, FileTextIcon, ImageIcon, CalendarIcon, MessageSquareIcon, SettingsIcon, HomeIcon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logo from "../../assets/Logo.png";
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const {
@@ -43,7 +44,7 @@ const Sidebar: React.FC = () => {
       <div className="flex-col justify-items-center p-5 border-b border-gray-700">
         <div className="flex items-center space-x-3">
           <div className="w-18 h-18 flex items-center justify-center">
-            <img src="/boxingLogo.png" alt="Boxing Logo"  />
+          <img src={logo} alt="Boxing Logo" />
           </div>
           <div>
             <div>
@@ -71,7 +72,7 @@ const Sidebar: React.FC = () => {
       <div className="p-4 border-t border-gray-700">
         <Link to="/" className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
           <HomeIcon size={20} />
-          <span>На головну сайту</span>
+          <span>На головну </span>
         </Link>
       </div>
     </aside>;
