@@ -1,0 +1,13 @@
+// backend/tsconfig.json
+
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "types": ["node", "express"],
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true
+  }
+}
