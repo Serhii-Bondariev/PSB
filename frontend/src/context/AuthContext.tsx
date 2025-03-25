@@ -1,19 +1,18 @@
 // frontend/src/context/AuthContext.tsx
-import React, { useEffect, useState, createContext, useContext } from 'react';
-import { loginUser, fetchUserProfile } from '../utils/api'; // Функції API-запитів
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 
-type User = {
+interface User {
   id: string;
   name: string;
   role: 'admin' | 'moderator';
-};
+}
 
-type AuthContextType = {
+interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<User | null>;
   logout: () => void;
-  isAuthenticated: boolean;
-};
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -21,32 +20,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('sportCenterToken');
+    const token = localStorage.getItem('token');
     if (token) {
-      fetchUserProfile(token)
-        .then(userData => setUser(userData))
-        .catch(() => logout());
+      axios.get('/api/auth/profile', { headers: { Authorization: `Bearer ${token}` } })
+        .then(response => setUser(response.data))
+        .catch(() => localStorage.removeItem('token'));
     }
   }, []);
 
   const login = async (email: string, password: string): Promise<User | null> => {
     try {
-      const { token, user } = await loginUser(email, password);
-      localStorage.setItem('sportCenterToken', token);
+      const response = await axios.post('/api/auth/login', { email, password });
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
       setUser(user);
       return user;
     } catch (error) {
+      console.error('Помилка входу', error);
       return null;
     }
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setUser(null);
-    localStorage.removeItem('sportCenterToken');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -54,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;

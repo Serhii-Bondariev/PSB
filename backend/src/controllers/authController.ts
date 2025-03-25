@@ -1,6 +1,7 @@
 // backend/src/controllers/authController.ts
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 import { AuthRequest } from '../../types/express';
@@ -27,21 +28,17 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
 // **Логін користувача**
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      res.status(400).json({ message: 'Невірний email або пароль' });
+      res.status(401).json({ message: 'Невірний email або пароль' });
       return;
     }
-
-    const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
-
-    res.json({ token, user: { id: user._id, name: user.name, role: user.role } });
+    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, user });
   } catch (error) {
     res.status(500).json({ message: 'Помилка сервера' });
   }

@@ -10,9 +10,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.MONGO_URI as string)
-.then(() => console.log(" Успішно підключено до MongoDB ✅"))
-.catch((err) => console.error("❌ Помилка підключення до MongoDB", err));
+mongoose
+  .connect(process.env.MONGO_URI as string)
+  .then(() => console.log(' Успішно підключено до MongoDB ✅'))
+  .catch((err) => console.error('❌ Помилка підключення до MongoDB', err));
 
 app.use('/api/auth', authRoutes);
 
