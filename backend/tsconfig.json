@@ -1,0 +1,20 @@
+// backend/tsconfig.json
+
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@api/*": ["api/*"]
+    },
+    "module": "CommonJS",
+    "target": "es6",
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "types": ["node", "express"],
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true
+  }
+}
