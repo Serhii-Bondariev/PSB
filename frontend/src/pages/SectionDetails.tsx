@@ -6,34 +6,36 @@ import { Clock, Users, Trophy } from 'lucide-react';
 const sections = {
   '1': {
     name: 'Бокс',
-    description: 'Розвиток сили, швидкості та координації через тренування з професійними тренерами.',
-    image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80',
+    description:
+      'Розвиток сили, швидкості та координації через тренування з професійними тренерами.',
+    image: 'https://cheline.com.ua/wp-content/uploads/2024/02/boks-780x470.jpeg',
     age: '10-16 років',
     schedule: 'Пн, Ср, Пт: 16:00-19:00',
     trainer: 'Олександр Петренко',
     achievements: ['Чемпіони міста 2022', 'Призери національних змагань'],
-    requirements: ['Медична довідка', 'Спортивна форма', 'Бажання тренуватися']
+    requirements: ['Медична довідка', 'Спортивна форма', 'Бажання тренуватися'],
   },
   '2': {
     name: 'Вільна боротьба',
-    description: 'Навчання техніці боротьби, розвиток сили та спритності під керівництвом досвідчених тренерів.',
-    image: 'https://images.unsplash.com/photo-1555597673-b21d5c935865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80',
+    description:
+      'Навчання техніці боротьби, розвиток сили та спритності під керівництвом досвідчених тренерів.',
+    image:
+      'https://www.nure.info/uploads/posts/2017-06/1498289918_sportivnyy-klub-sportivnye-sekcii-v-hnure-sekciya-borba.jpg',
     age: '8-16 років',
     schedule: 'Вт, Чт, Сб: 16:00-19:00',
     trainer: 'Микола Іваненко',
     achievements: ['Чемпіони області 2023', 'Призери міжнародних турнірів'],
-    requirements: ['Медична довідка', 'Спортивна форма', 'Бажання тренуватися']
-  }
+    requirements: ['Медична довідка', 'Спортивна форма', 'Бажання тренуватися'],
+  },
 };
 const SectionDetails: React.FC = () => {
-  const {
-    id
-  } = useParams<{
+  const { id } = useParams<{
     id: string;
   }>();
   const section = sections[id as keyof typeof sections];
   if (!section) {
-    return <div className="min-h-screen flex flex-col">
+    return (
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow bg-white py-16">
           <div className="container mx-auto px-4 text-center">
@@ -41,9 +43,11 @@ const SectionDetails: React.FC = () => {
           </div>
         </main>
         <Footer />
-      </div>;
+      </div>
+    );
   }
-  return <div className="min-h-screen flex flex-col">
+  return (
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
         <div className="relative h-[400px]">
@@ -51,12 +55,8 @@ const SectionDetails: React.FC = () => {
           <div className="absolute inset-0 bg-dark bg-opacity-50"></div>
           <div className="absolute inset-0 flex items-center">
             <div className="container mx-auto px-4">
-              <h1 className="text-4xl font-bold text-white mb-4">
-                {section.name}
-              </h1>
-              <p className="text-xl text-white max-w-2xl">
-                {section.description}
-              </p>
+              <h1 className="text-4xl font-bold text-white mb-4">{section.name}</h1>
+              <p className="text-xl text-white max-w-2xl">{section.description}</p>
             </div>
           </div>
         </div>
@@ -70,9 +70,7 @@ const SectionDetails: React.FC = () => {
               </div>
               <div className="bg-light p-6 rounded-lg">
                 <Users className="text-primary w-8 h-8 mb-4" />
-                <h3 className="text-xl font-bold text-dark mb-2">
-                  Вікова категорія
-                </h3>
+                <h3 className="text-xl font-bold text-dark mb-2">Вікова категорія</h3>
                 <p className="text-gray-600">{section.age}</p>
               </div>
               <div className="bg-light p-6 rounded-lg">
@@ -83,19 +81,19 @@ const SectionDetails: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h2 className="text-2xl font-bold text-dark mb-4">
-                  Досягнення
-                </h2>
+                <h2 className="text-2xl font-bold text-dark mb-4">Досягнення</h2>
                 <ul className="list-disc list-inside text-gray-600 space-y-2">
-                  {section.achievements.map((achievement, index) => <li key={index}>{achievement}</li>)}
+                  {section.achievements.map((achievement, index) => (
+                    <li key={index}>{achievement}</li>
+                  ))}
                 </ul>
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-dark mb-4">
-                  Що потрібно для занять
-                </h2>
+                <h2 className="text-2xl font-bold text-dark mb-4">Що потрібно для занять</h2>
                 <ul className="list-disc list-inside text-gray-600 space-y-2">
-                  {section.requirements.map((requirement, index) => <li key={index}>{requirement}</li>)}
+                  {section.requirements.map((requirement, index) => (
+                    <li key={index}>{requirement}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -103,6 +101,7 @@ const SectionDetails: React.FC = () => {
         </section>
       </main>
       <Footer />
-    </div>;
+    </div>
+  );
 };
 export default SectionDetails;

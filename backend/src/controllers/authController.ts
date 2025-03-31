@@ -1,12 +1,44 @@
 // backend/src/controllers/authController.ts
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 import { AuthRequest } from '../../types/express';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey';
+
+export const login = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    // Логування отриманих даних
+    console.log('Запит на логін: ', req.body);
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      console.log('Користувач не знайдений за email: ', email);
+      return res.status(401).json({ message: 'Користувача не знайдено' });
+    }
+
+    // Порівняння пароля
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      console.log('Невірний пароль для користувача: ', email);
+      return res.status(401).json({ message: 'Невірний пароль' });
+    }
+
+    // Генерація токену
+    const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    console.log('Успішний вхід для користувача: ', email);
+    return res.json({ token, user: { id: user._id, name: user.name, role: user.role } });
+  } catch (error) {
+    console.error('Помилка при логіні: ', error);
+    res.status(500).json({ message: 'Помилка сервера' });
+  }
+};
 
 // **Реєстрація користувача**
 export const register = async (req: Request, res: Response): Promise<void> => {
@@ -24,22 +56,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
     res.status(201).json({ message: 'Користувач створений', user: newUser });
   } catch (error) {
-    res.status(500).json({ message: 'Помилка сервера' });
-  }
-};
-
-// **Логін користувача**
-export const login = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      res.status(401).json({ message: 'Невірний email або пароль' });
-      return;
-    }
-    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token, user });
-  } catch (error) {
+    console.error('Помилка при реєстрації: ', error);
     res.status(500).json({ message: 'Помилка сервера' });
   }
 };
@@ -57,6 +74,7 @@ export const getProfile = async (req: AuthRequest, res: Response): Promise<void>
     }
     res.json(user);
   } catch (error) {
+    console.error('Помилка при отриманні профілю: ', error);
     res.status(500).json({ message: 'Помилка сервера' });
   }
 };

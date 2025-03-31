@@ -3,6 +3,7 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
+    "target": "es6",
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "types": ["node", "express"],
     "moduleResolution": "Node",
