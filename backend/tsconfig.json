@@ -2,6 +2,10 @@
 
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@api/*": ["api/*"]
+    },
     "module": "CommonJS",
     "target": "es6",
     "typeRoots": ["./src/types", "./node_modules/@types"],
