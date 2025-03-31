@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import authRoutes from '../routes/authRoutes';
+import authRoutes from './../backend/src/routes/authRoutes'; // Оновлений шлях
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+// Підключення до MongoDB
 mongoose
   .connect(process.env.MONGO_URI as string)
   .then(() => console.log('Успішно підключено до MongoDB ✅'))
@@ -32,5 +34,7 @@ mongoose
 
 app.use('/api/auth', authRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Сервер працює на порту ${PORT} 🚀`));
+// Експорт для Vercel
+export default (req: VercelRequest, res: VercelResponse) => {
+  app(req, res);
+};
