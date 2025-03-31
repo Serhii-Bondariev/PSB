@@ -4,8 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import authRoutes from '../backend/src/routes/authRoutes';
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import authRoutes from '../routes/authRoutes';
 
 dotenv.config();
 
@@ -33,6 +32,5 @@ mongoose
 
 app.use('/api/auth', authRoutes);
 
-export default (req: VercelRequest, res: VercelResponse) => {
-  app(req, res);
-};
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Сервер працює на порту ${PORT} 🚀`));
