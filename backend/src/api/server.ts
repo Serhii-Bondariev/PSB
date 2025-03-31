@@ -1,4 +1,4 @@
-// backend/src/api/index.ts
+// backend/src/server.ts
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -10,7 +10,7 @@ dotenv.config();
 
 const app = express();
 
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 app.use(
   cors({
@@ -21,12 +21,16 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-app.use('/api/auth', authRoutes);
 
-// Підключення до MongoDB для Vercel (без локального запуску)
 mongoose
   .connect(process.env.MONGO_URI as string)
   .then(() => console.log('Успішно підключено до MongoDB ✅'))
-  .catch((err) => console.error('❌ Помилка підключення до MongoDB', err));
+  .catch((err) => {
+    console.error('❌ Помилка підключення до MongoDB', err);
+    process.exit(1);
+  });
 
-export default app; // Експорт для Vercel
+app.use('/api/auth', authRoutes);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Сервер працює на порту ${PORT} 🚀`));
