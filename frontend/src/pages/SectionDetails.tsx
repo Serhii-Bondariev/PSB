@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { Clock, Users, Trophy } from 'lucide-react';
+import boxingImage from '../assets/boxingImg.webp';
+
 const sections = {
   '1': {
     name: 'Бокс',
     description:
       'Розвиток сили, швидкості та координації через тренування з професійними тренерами.',
-    image: 'https://cheline.com.ua/wp-content/uploads/2024/02/boks-780x470.jpeg',
+    image: boxingImage,
     age: '10-16 років',
     schedule: 'Пн, Ср, Пт: 16:00-19:00',
     trainer: 'Олександр Петренко',

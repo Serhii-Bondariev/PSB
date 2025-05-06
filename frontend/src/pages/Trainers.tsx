@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import klichkoVitaly from '../assets/klichkoVitaly.webp';
 const trainers = [
   {
     id: 1,
@@ -24,8 +25,8 @@ const trainers = [
     name: 'Віталій Кличко',
     position: 'Тренер з боксу',
     experience: '18 років досвіду',
-    image: 'https://www.etoday.ru/uploads/2008/10/12/vitali_klitschko.jpg',
-    achievements: ['Майстер спорту', 'Чемпіонка області'],
+    image: klichkoVitaly,
+    achievements: ['Майстер спорту', 'Чемпіон області'],
   },
   {
     id: 4,

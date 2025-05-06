@@ -5,7 +5,8 @@ import Hero from '../components/landing/Hero';
 import About from '../components/landing/About';
 import Activities from '../components/landing/Activities';
 const Home: React.FC = () => {
-  return <div className="min-h-screen flex flex-col">
+  return (
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
         <Hero />
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
         {/* Additional sections would be added here */}
       </main>
       <Footer />
-    </div>;
+    </div>
+  );
 };
 export default Home;

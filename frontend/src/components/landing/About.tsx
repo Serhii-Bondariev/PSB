@@ -1,5 +1,6 @@
 import React from 'react';
 import { Award, Users, Target, Heart } from 'lucide-react';
+import heroImage from '../../assets/heroImageLarge.jpg';
 const About: React.FC = () => {
   return (
     <section id="about" className="py-16 bg-white">
@@ -15,9 +16,9 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div className="rounded-lg overflow-hidden shadow-lg">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT3zz3f_P8qfolcSlVlQJuLhOkd7O21U28kw&s"
+              src={heroImage}
               alt="Діти займаються спортом"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-fit-cover"
             />
           </div>
           <div className="flex flex-col justify-center">
@@ -37,7 +38,7 @@ const About: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Users className="text-accent" />
-                <span>4 професійних тренерів</span>
+                <span>професійні тренери</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Target className="text-accent" />

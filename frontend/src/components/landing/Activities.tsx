@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import boxingImage from '../../assets/boxingImg.webp';
 const activities = [
   {
     id: 1,
     name: 'Бокс',
     description:
       'Розвиток сили, швидкості та координації через тренування з професійними тренерами.',
-    image: 'https://hitfitness.club/upload/iblock/7ec/aomb8kzryg21ibc3fvcen19nt8imofel.jpg',
+    image: boxingImage,
     age: '10-16 років',
     schedule: 'Пн, Ср, Пт: 16:00-19:00',
   },

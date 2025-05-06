@@ -41,3 +41,4 @@ public/static/
 
 # Docker
 docker-compose.override.yml
+.vercel
