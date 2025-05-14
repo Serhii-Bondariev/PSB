@@ -17,12 +17,13 @@ app.use((0, cors_1.default)({
     origin: frontendUrl,
     credentials: true,
 }));
-app.use((err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
     console.error('Server error:', err.stack);
     res.status(500).json({ message: 'Internal Server Error' });
-});
+};
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
+app.use(errorHandler);
 mongoose_1.default
     .connect(process.env.MONGO_URI)
     .then(() => console.log('Успішно підключено до MongoDB ✅'))
@@ -31,5 +32,5 @@ mongoose_1.default
     process.exit(1);
 });
 app.use('/api/auth', authRoutes_1.default);
-const PORT = process.env.PORT || 5000;
+const PORT = parseInt(process.env.PORT || '5000', 10);
 app.listen(PORT, () => console.log(`Сервер працює на порту ${PORT} 🚀`));
