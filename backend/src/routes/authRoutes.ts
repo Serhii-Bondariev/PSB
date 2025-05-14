@@ -51,7 +51,7 @@ const loginHandler: RequestHandler<{}, LoginResponse, LoginRequestBody> = async 
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
       maxAge: 3600000,
     });
 
