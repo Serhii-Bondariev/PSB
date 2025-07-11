@@ -21,7 +21,7 @@ export interface IUser extends Document {
   };
   about?: string;
   password: string;
-  role: 'admin' | 'moderator' | 'user';
+  role: 'admin' | 'moderator' | 'trainer' | 'user';
   matchPassword(enteredPassword: string): Promise<boolean>; // Додайте метод matchPassword до інтерфейсу
 }
 
@@ -44,7 +44,7 @@ const UserSchema = new Schema<IUser>({
   },
   about: { type: String },
   password: { type: String, required: true },
-  role: { type: String, enum: ['admin', 'moderator', 'user'], default: 'user' },
+  role: { type: String, enum: ['admin', 'moderator', 'trainer', 'user'], default: 'user' },
 });
 
 // Хешування пароля перед збереженням
